@@ -2030,14 +2030,14 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
-      "fa/1.0.0": {
+      "Life/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
-          "bin/placeholder/fa.dll": {}
+          "bin/placeholder/Life.dll": {}
         },
         "runtime": {
-          "bin/placeholder/fa.dll": {}
+          "bin/placeholder/Life.dll": {}
         }
       }
     }
@@ -6873,10 +6873,10 @@
         "system.xml.xpath.xmldocument.nuspec"
       ]
     },
-    "fa/1.0.0": {
+    "Life/1.0.0": {
       "type": "project",
-      "path": "../fa/fa.csproj",
-      "msbuildProject": "../fa/fa.csproj"
+      "path": "../Life/Life.csproj",
+      "msbuildProject": "../Life/Life.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -6885,7 +6885,7 @@
       "MSTest.TestFramework >= 1.4.0",
       "Microsoft.NET.Test.Sdk >= 16.2.0",
       "coverlet.collector >= 1.0.1",
-      "fa >= 1.0.0"
+      "Life >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -6894,11 +6894,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\123\\Source\\Repos\\mod-lab02-fa-csharp\\fa.Tests\\fa.Tests.csproj",
-      "projectName": "fa.Tests",
-      "projectPath": "C:\\Users\\123\\Source\\Repos\\mod-lab02-fa-csharp\\fa.Tests\\fa.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\123\\Source\\Repos\\mod-lab04-life\\Life.Tests\\Life.Tests.csproj",
+      "projectName": "Life.Tests",
+      "projectPath": "C:\\Users\\123\\Source\\Repos\\mod-lab04-life\\Life.Tests\\Life.Tests.csproj",
       "packagesPath": "C:\\Users\\123\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\123\\Source\\Repos\\mod-lab02-fa-csharp\\fa.Tests\\obj\\",
+      "outputPath": "C:\\Users\\123\\Source\\Repos\\mod-lab04-life\\Life.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\123\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6914,8 +6914,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "C:\\Users\\123\\Source\\Repos\\mod-lab02-fa-csharp\\fa\\fa.csproj": {
-              "projectPath": "C:\\Users\\123\\Source\\Repos\\mod-lab02-fa-csharp\\fa\\fa.csproj"
+            "C:\\Users\\123\\Source\\Repos\\mod-lab04-life\\Life\\Life.csproj": {
+              "projectPath": "C:\\Users\\123\\Source\\Repos\\mod-lab04-life\\Life\\Life.csproj"
             }
           }
         }
