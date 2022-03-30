@@ -8,7 +8,7 @@ using System.Text.Json;
 using System.IO;
 using System.Text.Json.Serialization;
 
-namespace cli_life
+namespace Life
 {
     public class Cell
     {
@@ -42,7 +42,7 @@ namespace cli_life
     }
     public class Board
     {
-        public int Columns { get { return Cells.GetLength(0); }  set { Columns = value; } }
+        public int Columns { get { return Cells.GetLength(0); } set { Columns = value; } }
         public int Rows { get { return Cells.GetLength(1); } set { Rows = value; } }
         public int Width { get { return Columns * CellSize; } set { Width = value; } }
         public int Height { get { return Rows * CellSize; } set { Height = value; } }
@@ -129,7 +129,7 @@ namespace cli_life
             ConnectNeighbors();
             LoadCellsStates();
         }
-        public Board(){}
+        public Board() { }
         readonly Random rand = new Random();
         public void Randomize(double liveDensity)
         {
@@ -150,7 +150,7 @@ namespace cli_life
         {
             int length = CellStates.Length;
             if (length < Columns * Rows)
-                for (int i = 0; i<Columns*Rows - length; i++)
+                for (int i = 0; i < Columns * Rows - length; i++)
                 {
                     CellStates = CellStates + "1";
                 }
@@ -159,7 +159,8 @@ namespace cli_life
                 for (int y = 0; y < Rows; y++)
                 {
                     if (CellStates[x * Rows + y].Equals('1'))
-                        Cells[x, y].IsAlive = true; else Cells[x, y].IsAlive = false;
+                        Cells[x, y].IsAlive = true;
+                    else Cells[x, y].IsAlive = false;
                 }
             }
         }
@@ -220,9 +221,9 @@ namespace cli_life
         public int FindFigure(int x, int y)
         {
             int k = 0;
-            for (int i = 0; i<Figures.Count(); i++)
+            for (int i = 0; i < Figures.Count(); i++)
             {
-                for (int j = 0; j<Figures[i].Count(); j++)
+                for (int j = 0; j < Figures[i].Count(); j++)
                 {
                     if (Figures[i][j][0] == x && Figures[i][j][1] == y)
                     {
@@ -234,10 +235,10 @@ namespace cli_life
         }
         public void DisplayFigures()
         {
-            for (int i = 0; i<Figures.Count(); i++)
+            for (int i = 0; i < Figures.Count(); i++)
             {
                 Console.Write("{");
-                for (int j = 0; j<Figures[i].Count(); j++)
+                for (int j = 0; j < Figures[i].Count(); j++)
                 {
                     Console.Write("(" + Figures[i][j][0] + ", " + Figures[i][j][1] + ")");
                 }
@@ -246,17 +247,17 @@ namespace cli_life
         }
         public void SumFigures()
         {
-            for (int i = 0; i<Figures.Count(); i++)
+            for (int i = 0; i < Figures.Count(); i++)
             {
-                for (int j = i+1; j < Figures.Count(); j++)
+                for (int j = i + 1; j < Figures.Count(); j++)
                 {
-                    for (int k = 0; k<Figures[i].Count(); k++)
+                    for (int k = 0; k < Figures[i].Count(); k++)
                     {
-                        for (int s = 0; s<Figures[j].Count(); s++)
+                        for (int s = 0; s < Figures[j].Count(); s++)
                         {
                             for (int v = 0; v < 8; v++)
                             {
-                                if (Cells[Figures[i][k][0], Figures[i][k][1]].neighbors[v].X 
+                                if (Cells[Figures[i][k][0], Figures[i][k][1]].neighbors[v].X
                                     == Cells[Figures[j][s][0], Figures[j][s][1]].X &&
                                     Cells[Figures[i][k][0], Figures[i][k][1]].neighbors[v].Y
                                     == Cells[Figures[j][s][0], Figures[j][s][1]].Y)
@@ -264,7 +265,7 @@ namespace cli_life
                                     Figures[i].Add(Figures[j][s]);
                                     Figures[j].RemoveAt(s);
                                     s--;
-                                    if (s < 0) 
+                                    if (s < 0)
                                         s = 0;
                                     break;
                                 }
@@ -298,7 +299,7 @@ namespace cli_life
             int height = 0;
             bool simmX = true;
             bool simmY = true;
-            bool[,] simmetricFigure = new bool[Columns,Rows];
+            bool[,] simmetricFigure = new bool[Columns, Rows];
             Block = 0;
             Barge = 0;
             Hive = 0;
@@ -307,7 +308,7 @@ namespace cli_life
             Ship = 0;
             Pond = 0;
             Flasher = 0;
-            for (int i = 0; i<Figures.Count(); i++)
+            for (int i = 0; i < Figures.Count(); i++)
             {
                 minX1 = Columns;
                 minX2 = Columns;
@@ -440,10 +441,10 @@ namespace cli_life
                 }
                 for (int j = 0; j < width; j++)
                 {
-                for (int s = 0; s < height; s++)
-                {
-                    if (simmetricFigure[j, s] != simmetricFigure[j, height - s - 1])
-                        simmX = false;
+                    for (int s = 0; s < height; s++)
+                    {
+                        if (simmetricFigure[j, s] != simmetricFigure[j, height - s - 1])
+                            simmX = false;
                     }
                 }
                 for (int s = 0; s < height; s++)
@@ -507,7 +508,7 @@ namespace cli_life
                      && simmetricFigure[0, 1] && !simmetricFigure[1, 1] && !simmetricFigure[2, 1] && simmetricFigure[3, 1]
                      && !simmetricFigure[0, 2] && simmetricFigure[1, 2] && simmetricFigure[2, 2] && !simmetricFigure[3, 2])
                         Hive++;
-                } 
+                }
                 else if (width == 4 && height == 4)
                 {
                     if (!simmetricFigure[0, 0] && simmetricFigure[1, 0] && simmetricFigure[2, 0] && !simmetricFigure[3, 0]
@@ -594,7 +595,7 @@ namespace cli_life
                         {
                             Cells[x, y].InFigure = true;
                             Figures.Add(new List<int[]>());
-                            Figures[Figures.Count()-1].Add(new int[2] { x, y });
+                            Figures[Figures.Count() - 1].Add(new int[2] { x, y });
                             if (Cells[x, y].Stable && !havenotstable) Stable++;
                             else if ((Cells[x, y].Stable && havenotstable) || (Cells[x, y].NotStable && havestable)) Periodic++;
                             else if (Cells[x, y].NotStable && !havestable) Moving++;
@@ -649,62 +650,62 @@ namespace cli_life
                     cellSize: Int32.Parse(words[10]),
                     CellStates: words[13]);
             }
-                int k = 0;
-                bool[,] bufferboard0 = new bool[board1.Columns, board1.Rows];
-                bool[,] bufferboard1 = new bool[board1.Columns, board1.Rows];
-                bool[,] bufferboard2 = new bool[board1.Columns, board1.Rows];
-                bool[,] bufferboard3 = new bool[board1.Columns, board1.Rows];
-                bool[,] bufferboard4 = new bool[board1.Columns, board1.Rows];
-                while (true)
+            int k = 0;
+            bool[,] bufferboard0 = new bool[board1.Columns, board1.Rows];
+            bool[,] bufferboard1 = new bool[board1.Columns, board1.Rows];
+            bool[,] bufferboard2 = new bool[board1.Columns, board1.Rows];
+            bool[,] bufferboard3 = new bool[board1.Columns, board1.Rows];
+            bool[,] bufferboard4 = new bool[board1.Columns, board1.Rows];
+            while (true)
+            {
+                k++;
+                board1.Advance();
+                if (steps != -1)
                 {
-                    k++;
-                    board1.Advance();
-                    if (steps != -1)
-                    {
-                        Console.WriteLine(steps);
-                        return steps;
-                    }
-                    if (steps == -1)
-                    {
-                        if (k % 5 == 0)
-                        {
-                            bufferboard0 = board1.copy();
-                        }
-                        else if (k % 5 == 1)
-                        {
-                            bufferboard1 = board1.copy();
-                            if (board1.equals(bufferboard0, bufferboard1))
-                            {
-                                steps = k - 1;
-                            }
-                        }
-                        else if (k % 5 == 2)
-                        {
-                            bufferboard2 = board1.copy();
-                            if (board1.equals(bufferboard0, bufferboard2))
-                            {
-                                steps = k - 2;
-                            }
-                        }
-                        else if (k % 5 == 3)
-                        {
-                            bufferboard3 = board1.copy();
-                            if (board1.equals(bufferboard0, bufferboard3))
-                            {
-                                steps = k - 3;
-                            }
-                        }
-                        else if (k % 5 == 4)
-                        {
-                            bufferboard4 = board1.copy();
-                            if (board1.equals(bufferboard0, bufferboard4))
-                            {
-                                steps = k - 4;
-                            }
-                        }
-                    }
-                    Thread.Sleep(1);
+                    Console.WriteLine(steps);
+                    return steps;
                 }
+                if (steps == -1)
+                {
+                    if (k % 5 == 0)
+                    {
+                        bufferboard0 = board1.copy();
+                    }
+                    else if (k % 5 == 1)
+                    {
+                        bufferboard1 = board1.copy();
+                        if (board1.equals(bufferboard0, bufferboard1))
+                        {
+                            steps = k - 1;
+                        }
+                    }
+                    else if (k % 5 == 2)
+                    {
+                        bufferboard2 = board1.copy();
+                        if (board1.equals(bufferboard0, bufferboard2))
+                        {
+                            steps = k - 2;
+                        }
+                    }
+                    else if (k % 5 == 3)
+                    {
+                        bufferboard3 = board1.copy();
+                        if (board1.equals(bufferboard0, bufferboard3))
+                        {
+                            steps = k - 3;
+                        }
+                    }
+                    else if (k % 5 == 4)
+                    {
+                        bufferboard4 = board1.copy();
+                        if (board1.equals(bufferboard0, bufferboard4))
+                        {
+                            steps = k - 4;
+                        }
+                    }
+                }
+                Thread.Sleep(1);
+            }
         }
         public int stepstostablestring(string s)
         {
@@ -718,63 +719,63 @@ namespace cli_life
                                         height: Int32.Parse(words[8]),
                                         cellSize: Int32.Parse(words[10]),
                                         CellStates: words[13]);
-                int k = 0;
-                bool[,] bufferboard0 = new bool[board1.Columns, board1.Rows];
-                bool[,] bufferboard1 = new bool[board1.Columns, board1.Rows];
-                bool[,] bufferboard2 = new bool[board1.Columns, board1.Rows];
-                bool[,] bufferboard3 = new bool[board1.Columns, board1.Rows];
-                bool[,] bufferboard4 = new bool[board1.Columns, board1.Rows];
-                while (true)
-                {
-                    k++;
-                    board1.Advance();
+            int k = 0;
+            bool[,] bufferboard0 = new bool[board1.Columns, board1.Rows];
+            bool[,] bufferboard1 = new bool[board1.Columns, board1.Rows];
+            bool[,] bufferboard2 = new bool[board1.Columns, board1.Rows];
+            bool[,] bufferboard3 = new bool[board1.Columns, board1.Rows];
+            bool[,] bufferboard4 = new bool[board1.Columns, board1.Rows];
+            while (true)
+            {
+                k++;
+                board1.Advance();
                 if (steps != -1)
                 {
                     Console.WriteLine(steps);
                     return steps;
                 }
-                    if (steps == -1)
+                if (steps == -1)
+                {
+                    if (k % 5 == 0)
                     {
-                        if (k % 5 == 0)
+                        bufferboard0 = board1.copy();
+                    }
+                    else if (k % 5 == 1)
+                    {
+                        bufferboard1 = board1.copy();
+                        if (board1.equals(bufferboard0, bufferboard1))
                         {
-                            bufferboard0 = board1.copy();
-                        }
-                        else if (k % 5 == 1)
-                        {
-                            bufferboard1 = board1.copy();
-                            if (board1.equals(bufferboard0, bufferboard1))
-                            {
-                                steps = k - 1;
-                            }
-                        }
-                        else if (k % 5 == 2)
-                        {
-                            bufferboard2 = board1.copy();
-                            if (board1.equals(bufferboard0, bufferboard2))
-                            {
-                                steps = k - 2;
-                            }
-                        }
-                        else if (k % 5 == 3)
-                        {
-                            bufferboard3 = board1.copy();
-                            if (board1.equals(bufferboard0, bufferboard3))
-                            {
-                                steps = k - 3;
-                            }
-                        }
-                        else if (k % 5 == 4)
-                        {
-                            bufferboard4 = board1.copy();
-                            if (board1.equals(bufferboard0, bufferboard4))
-                            {
-                                steps = k - 4;
-                            }
+                            steps = k - 1;
                         }
                     }
-                    Thread.Sleep(1);
+                    else if (k % 5 == 2)
+                    {
+                        bufferboard2 = board1.copy();
+                        if (board1.equals(bufferboard0, bufferboard2))
+                        {
+                            steps = k - 2;
+                        }
+                    }
+                    else if (k % 5 == 3)
+                    {
+                        bufferboard3 = board1.copy();
+                        if (board1.equals(bufferboard0, bufferboard3))
+                        {
+                            steps = k - 3;
+                        }
+                    }
+                    else if (k % 5 == 4)
+                    {
+                        bufferboard4 = board1.copy();
+                        if (board1.equals(bufferboard0, bufferboard4))
+                        {
+                            steps = k - 4;
+                        }
+                    }
                 }
+                Thread.Sleep(1);
             }
+        }
         public int stablefile(string s)
         {
             Board board1 = new Board();
@@ -1237,7 +1238,7 @@ namespace cli_life
             {
                 k++;
                 board1.Advance();
-                
+
                 if (steps != -1)
                 {
                     board1.CalculateFigures();
@@ -1316,7 +1317,7 @@ namespace cli_life
                     Console.WriteLine(board1.Block);
                     return board1.Block;
                 }
-                    if (steps == -1)
+                if (steps == -1)
                 {
                     if (k % 5 == 0)
                     {
@@ -2434,121 +2435,121 @@ namespace cli_life
         }
         static async Task Main(string[] args)
         {
-           /* board = new Board(50, 20);
-            int steps = -1;
-            Console.WriteLine("Хотите загрузить данные из файла? 1 - Да, 0 - Нет");
-            int choice = 0;
-            while (choice != 0 && choice != 1)
-            {
-                choice = int.Parse(Console.ReadLine());
-            }
-            if (choice == 1)
-            {
-                Console.WriteLine("Напишите имя файла: ");
-                using (StreamReader r = new StreamReader("user.json"))
-                {
-                    var json = r.ReadToEnd();
-                    string[] words = json.Split(new char[] { '"' });
-                    words[6] = words[6].Substring(1, words[6].Length - 2);
-                    words[8] = words[8].Substring(1, words[8].Length - 2);
-                    words[10] = words[10].Substring(1, words[10].Length - 2);
-                    board = new Board(
-                        width: Int32.Parse(words[6]),
-                        height: Int32.Parse(words[8]),
-                        cellSize: 1,
-                        CellStates: words[13]);
-                }
-            }
-            else Reset();
-            new Thread(async () =>
-            {
-                while (true)
-                {
-                    KeyGet();
-                    using (FileStream fs = new FileStream("test4.json", FileMode.OpenOrCreate))
-                    {
-                        await JsonSerializer.SerializeAsync<Board>(fs, board);
-                        Console.WriteLine("Данные были сохранены");
-                    }
-                }
-            }).Start();
-            int k = 0;
-            bool[,] bufferboard0 = new bool[board.Columns, board.Rows];
-            bool[,] bufferboard1 = new bool[board.Columns, board.Rows];
-            bool[,] bufferboard2 = new bool[board.Columns, board.Rows];
-            bool[,] bufferboard3 = new bool[board.Columns, board.Rows];
-            bool[,] bufferboard4 = new bool[board.Columns, board.Rows];
-            while (true)
-            {
-                k++;
-                board.CalculateFigures();
-                Console.Clear();
-                Console.WriteLine("Чтобы сохранить состояние, нажмите Enter");
-                Render();
-                board.Advance();
-                board.SaveCellsStates();
-                if (steps != -1)
-                    Console.WriteLine("Переход в стабильную фазу произошёл через " + steps + " шагов");
-                if (k >= 100 && steps == -1)
-                {
-                    if (k % 5 == 0)
-                    {
-                        bufferboard0 = board.copy();
-                    }
-                    else if (k % 5 == 1)
-                    {
-                        bufferboard1 = board.copy();
-                        if (board.equals(bufferboard0, bufferboard1))
-                        {
-                            steps = k - 1;
-                        }
-                    }
-                    else if (k % 5 == 2)
-                    {
-                        bufferboard2 = board.copy();
-                        if (board.equals(bufferboard0, bufferboard2))
-                        {
-                            steps = k - 2;
-                        }
-                    }
-                    else if (k % 5 == 3)
-                    {
-                        bufferboard3 = board.copy();
-                        if (board.equals(bufferboard0, bufferboard3))
-                        {
-                            steps = k - 3;
-                        }
-                    }
-                    else if (k % 5 == 4)
-                    {
-                        bufferboard4 = board.copy();
-                        if (board.equals(bufferboard0, bufferboard4))
-                        {
-                            steps = k - 4;
-                        }
-                    }
-                }
-                if (k > 10)
-                {
-                    Console.WriteLine("Устойчивых: " + board.Stable);
-                    Console.WriteLine("Периодических: " + board.Periodic);
-                    Console.WriteLine("Двигающихся: " + board.Moving);
-                    Console.WriteLine("Симметричных: " + board.SimmetricFigures());
-                    //board.DisplayFigures();
-                    Console.WriteLine("Барж:" + board.Barge);
-                    Console.WriteLine("Ульев:" + board.Hive);
-                    Console.WriteLine("Блоков:" + board.Block);
-                    Console.WriteLine("Ящиков:" + board.Box);
-                    Console.WriteLine("Лодок:" + board.Boat);
-                    Console.WriteLine("Кораблей:" + board.Ship);
-                    Console.WriteLine("Прудов:" + board.Pond);
-                    Console.WriteLine("Мигалок:" + board.Flasher);
-                    Thread.Sleep(50);
-                }
-                Console.WriteLine(k);
-                Thread.Sleep(1);
-            }*/
-           board = new Board();
+            /* board = new Board(50, 20);
+             int steps = -1;
+             Console.WriteLine("Хотите загрузить данные из файла? 1 - Да, 0 - Нет");
+             int choice = 0;
+             while (choice != 0 && choice != 1)
+             {
+                 choice = int.Parse(Console.ReadLine());
+             }
+             if (choice == 1)
+             {
+                 Console.WriteLine("Напишите имя файла: ");
+                 using (StreamReader r = new StreamReader("user.json"))
+                 {
+                     var json = r.ReadToEnd();
+                     string[] words = json.Split(new char[] { '"' });
+                     words[6] = words[6].Substring(1, words[6].Length - 2);
+                     words[8] = words[8].Substring(1, words[8].Length - 2);
+                     words[10] = words[10].Substring(1, words[10].Length - 2);
+                     board = new Board(
+                         width: Int32.Parse(words[6]),
+                         height: Int32.Parse(words[8]),
+                         cellSize: 1,
+                         CellStates: words[13]);
+                 }
+             }
+             else Reset();
+             new Thread(async () =>
+             {
+                 while (true)
+                 {
+                     KeyGet();
+                     using (FileStream fs = new FileStream("test4.json", FileMode.OpenOrCreate))
+                     {
+                         await JsonSerializer.SerializeAsync<Board>(fs, board);
+                         Console.WriteLine("Данные были сохранены");
+                     }
+                 }
+             }).Start();
+             int k = 0;
+             bool[,] bufferboard0 = new bool[board.Columns, board.Rows];
+             bool[,] bufferboard1 = new bool[board.Columns, board.Rows];
+             bool[,] bufferboard2 = new bool[board.Columns, board.Rows];
+             bool[,] bufferboard3 = new bool[board.Columns, board.Rows];
+             bool[,] bufferboard4 = new bool[board.Columns, board.Rows];
+             while (true)
+             {
+                 k++;
+                 board.CalculateFigures();
+                 Console.Clear();
+                 Console.WriteLine("Чтобы сохранить состояние, нажмите Enter");
+                 Render();
+                 board.Advance();
+                 board.SaveCellsStates();
+                 if (steps != -1)
+                     Console.WriteLine("Переход в стабильную фазу произошёл через " + steps + " шагов");
+                 if (k >= 100 && steps == -1)
+                 {
+                     if (k % 5 == 0)
+                     {
+                         bufferboard0 = board.copy();
+                     }
+                     else if (k % 5 == 1)
+                     {
+                         bufferboard1 = board.copy();
+                         if (board.equals(bufferboard0, bufferboard1))
+                         {
+                             steps = k - 1;
+                         }
+                     }
+                     else if (k % 5 == 2)
+                     {
+                         bufferboard2 = board.copy();
+                         if (board.equals(bufferboard0, bufferboard2))
+                         {
+                             steps = k - 2;
+                         }
+                     }
+                     else if (k % 5 == 3)
+                     {
+                         bufferboard3 = board.copy();
+                         if (board.equals(bufferboard0, bufferboard3))
+                         {
+                             steps = k - 3;
+                         }
+                     }
+                     else if (k % 5 == 4)
+                     {
+                         bufferboard4 = board.copy();
+                         if (board.equals(bufferboard0, bufferboard4))
+                         {
+                             steps = k - 4;
+                         }
+                     }
+                 }
+                 if (k > 10)
+                 {
+                     Console.WriteLine("Устойчивых: " + board.Stable);
+                     Console.WriteLine("Периодических: " + board.Periodic);
+                     Console.WriteLine("Двигающихся: " + board.Moving);
+                     Console.WriteLine("Симметричных: " + board.SimmetricFigures());
+                     //board.DisplayFigures();
+                     Console.WriteLine("Барж:" + board.Barge);
+                     Console.WriteLine("Ульев:" + board.Hive);
+                     Console.WriteLine("Блоков:" + board.Block);
+                     Console.WriteLine("Ящиков:" + board.Box);
+                     Console.WriteLine("Лодок:" + board.Boat);
+                     Console.WriteLine("Кораблей:" + board.Ship);
+                     Console.WriteLine("Прудов:" + board.Pond);
+                     Console.WriteLine("Мигалок:" + board.Flasher);
+                     Thread.Sleep(50);
+                 }
+                 Console.WriteLine(k);
+                 Thread.Sleep(1);
+             }*/
+            board = new Board();
             board.stepstostablefile("test4.json");
             board.stablefile("test4.json");
             board.periodicfile("test4.json");
